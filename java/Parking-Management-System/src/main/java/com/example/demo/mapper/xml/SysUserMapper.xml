@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.SysUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.SysUser">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="status" property="status" />
+    </resultMap>
+    <select id="findAuthByUserId" resultType="com.example.demo.entity.SysAuth" parameterType="long">
+        SELECT sys_auth.* FROM sys_auth LEFT JOIN sys_role_auth ON sys_role_auth.auth_id = sys_auth.id LEFT JOIN sys_user_role ON sys_user_role.role_id = sys_role_auth.role_id WHERE sys_user_role.user_id = #{userid}
+    </select>
+    <select id="findRoleByUserId" resultType="com.example.demo.entity.SysRole" parameterType="long">
+        SELECT
+            sys_role.*
+        FROM
+            sys_role
+                LEFT JOIN sys_user_role ON sys_user_role.role_id = sys_role.id
+        WHERE
+            sys_user_role.user_id = #{userid}
+    </select>
+</mapper>

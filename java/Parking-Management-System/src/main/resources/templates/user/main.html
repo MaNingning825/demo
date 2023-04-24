@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="include :: header('用户列表')" />
+</head>
+<body class="pear-container">
+     <div class="layui-card">
+        <div class="layui-card-body">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId" class="layui-form">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户昵称：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="nickName" placeholder="请输入用户昵称" class="layui-input" />
+                        </div>
+                        <label class="layui-form-label">车牌号：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="carNumber" placeholder="请输入用户车牌号" class="layui-input" />
+                        </div>
+                        <label class="layui-form-label">用户手机：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="tel" placeholder="请输入用户手机" class="layui-input" />
+                        </div>
+                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="user-query">
+                        <i class="layui-icon layui-icon-search"></i>
+                        查询
+                    </button>
+                    <button type="reset" class="pear-btn pear-btn-md">
+                        <i class="layui-icon layui-icon-refresh"></i>
+                        重置
+                    </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+     </div>
+         <div class="layui-card">
+             <div class="layui-card-body">
+                 <table id="user-table" lay-filter="user-table"></table>
+
+                 <script type="text/html" id="user-toolbar">
+                     <button  sec:authorize="hasPermission('/park/user/add','park:user:add')"  class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
+                         <i class="layui-icon layui-icon-add-1"></i>
+                         新增
+                     </button>
+                     <button  sec:authorize="hasPermission('/park/user/remove','park:user:remove')"   class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove">
+                         <i class="layui-icon layui-icon-delete"></i>
+                         删除
+                     </button>
+                 </script>
+
+                 <script type="text/html" id="user-bar">
+                     <button  sec:authorize="hasPermission('/park/user/edit','park:user:edit')"   class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>
+                     </button>
+                     <button  sec:authorize="hasPermission('/park/user/remove','park:user:remove')"   class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i>
+                     </button>
+                 </script>
+             </div>
+         </div>
+    <th:block th:include="include :: footer" />
+         <script>
+             layui.use(['table', 'form', 'jquery','dictionary'], function () {
+                 let table = layui.table;
+                 let form = layui.form;
+                 let $ = layui.jquery;
+
+                 let prefix = "/user/";
+
+                 let cols = [
+                     [
+                         {type: 'checkbox'},
+                         {
+                             field: 'carId',
+                             title: '用户ID',
+                             align: 'center'
+                         },
+                        {
+                             field: 'nickName',
+                             title: '用户昵称',
+                            align: 'center'
+                        },
+                        {
+                             field: 'cardType',
+                             title: '停车卡类型',
+                            align: 'center',
+                            templet:function (d) {
+                                if(d.cardType===1){
+                                    return '普通卡';
+                                } else if(d.cardType===2){
+                                    return 'VIP卡';
+                                }
+                            }
+
+                        },
+                        {
+                             field: 'stationType',
+                             title: '车位类型',
+                            align: 'center',
+                            templet:function (d) {
+                                if(d.stationType===1){
+                                    return '小型';
+                                } else if(d.stationType===2){
+                                    return '中型';
+                                }else if(d.stationType===3){
+                                    return '大型';
+                                }
+                            }
+                        },
+                        {
+                             field: 'carNumber',
+                             title: '车牌号',
+                            align: 'center'
+                        },
+                        {
+                             field: 'tel',
+                             title: '手机号',
+                            align: 'center'
+                        },
+                        {
+                             field: 'gender',
+                             title: '性别',align: 'center',
+                            templet:function (d) {
+                                if(d.gender===0){
+                                    return '未知';
+                                } else if(d.gender===1){
+                                    return '男';
+                                }else if(d.gender===2){
+                                    return '女';
+                                }
+                            }
+                        },
+                        {
+                             field: 'overage',
+                             title: '余额',
+                            align: 'center',
+                            templet:function (d) {
+                                return d.overage+'元';
+                            }
+                        },
+                        {
+                             field: 'parkingLot',
+                             title: '是否停车',
+                            align: 'center',
+                            templet:function (d) {
+                                if (d.parkingLot=== 0) {
+                                    return '未停车';
+                                }else if(d.parkingLot===1){
+                                    return '已停车';
+                                }
+                            }
+                            },
+                        {
+                             field: 'state',
+                             title: '状态',
+                            align: 'center',
+                            templet:function (d) {
+                                if(d.state===1){
+                                    return '正常';
+                                } else if(d.state===2){
+                                    return '冻结';
+                                }else if(d.state===3){
+                                    return '欠费';
+                                }
+                            }
+                        },
+                         {title: '操作', toolbar: '#user-bar', align: 'center', width: 130}
+                     ]
+                 ]
+
+                 table.render({
+                     elem: '#user-table',
+                     url: prefix + 'data',
+                     page: true,
+                     cols: cols,
+                     skin: 'line',
+                     toolbar: '#user-toolbar',
+                     defaultToolbar: [{
+                         layEvent: 'refresh',
+                         icon: 'layui-icon-refresh',
+                     }, 'filter', 'print', 'exports']
+                 });
+
+                 table.on('tool(user-table)', function (obj) {
+                     if (obj.event === 'remove') {
+                         window.remove(obj);
+                     } else if (obj.event === 'edit') {
+                         window.edit(obj);
+                     }
+                 });
+
+                 table.on('toolbar(user-table)', function (obj) {
+                     if (obj.event === 'add') {
+                         window.add();
+                     } else if (obj.event === 'refresh') {
+                         window.refresh();
+                     } else if (obj.event === 'batchRemove') {
+                         window.batchRemove(obj);
+                     }
+                 });
+
+                 form.on('submit(user-query)', function (data) {
+                     table.reload('user-table', {where: data.field})
+                     return false;
+                 });
+
+                 window.add = function () {
+                     layer.open({
+                         type: 2,
+                         title: '新增用户',
+                         shade: 0.1,
+                         area: ['550px', '500px'],
+                         content: prefix + 'add'
+                     });
+                 }
+
+                 window.edit = function (obj) {
+                     layer.open({
+                         type: 2,
+                         title: '修改用户',
+                         shade: 0.1,
+                         area: ['550px', '500px'],
+                         content: prefix + 'edit?carId=' + obj.data['carId']
+                     });
+                 }
+
+                 window.remove = function (obj) {
+                     layer.confirm('确定要删除该用户', {icon: 3, title: '提示'}, function (index) {
+                         layer.close(index);
+                         let loading = layer.load();
+                         $.ajax({
+                             url: prefix + "remove/" + obj.data['carId'],
+                             dataType: 'json',
+                             type: 'delete',
+                             success: function (result) {
+                                 layer.close(loading);
+                                 if (result.success) {
+                                     layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                                         obj.del();
+                                     });
+                                 } else {
+                                     layer.msg(result.msg, {icon: 2, time: 1000});
+                                 }
+                             }
+                         })
+                     });
+                 }
+
+                 window.batchRemove = function (obj) {
+                     let data = table.checkStatus(obj.config.id).data;
+                     if (data.length === 0) {
+                         layer.msg("未选中数据", {icon: 3, time: 1000});
+                         return false;
+                     }
+                     let ids=[];
+                     console.log(data)
+                     data.forEach( (item,index)=> {
+                         ids.push(data[index].id);
+                     })
+                     ids = ids.substr(0, ids.length - 1);
+                     layer.confirm('确定要删除这些用户', {icon: 3, title: '提示'}, function (index) {
+                         layer.close(index);
+                         let loading = layer.load();
+                         $.ajax({
+                             url: prefix + "batchRemove",
+                             dataType: 'json',
+                             data: "ids="+ids,
+                             type: 'delete',
+                             success: function (result) {
+                                 layer.close(loading);
+                                 if (result.success) {
+                                     layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                                         table.reload('user-table');
+                                     });
+                                 } else {
+                                     layer.msg(result.msg, {icon: 2, time: 1000});
+                                 }
+                             }
+                         })
+                     });
+                 }
+
+                 window.refresh = function (param) {
+                     table.reload('user-table', {where: param});
+                 }
+             })
+         </script>
+</body>
+</html>

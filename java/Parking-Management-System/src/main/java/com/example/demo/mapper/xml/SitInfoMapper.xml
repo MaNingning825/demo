@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.SitInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.SitInfo">
+        <id column="station_id" property="stationId" />
+        <result column="station" property="station" />
+        <result column="identifier" property="identifier" />
+        <result column="station_type" property="stationType" />
+        <result column="state" property="state" />
+    </resultMap>
+    <select id="countOfSit" resultType="int">
+        select count(*) from sit_info;
+    </select>
+
+    <select id="countOfAvailableSit" resultType="int">
+        select count(*) from sit_info where state = 1;
+    </select>
+</mapper>

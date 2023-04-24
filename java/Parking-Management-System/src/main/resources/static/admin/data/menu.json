@@ -1,0 +1,92 @@
+[
+	{
+		"id": 1,
+		"title": "首页",
+		"type": 1,
+		"openType": "_iframe",
+		"icon": "layui-icon layui-icon-home",
+		"href": "console/console"
+	},
+	{
+		"id": 2,
+		"title": "用户管理",
+		"type": 1,
+		"openType": "_iframe",
+		"icon": "layui-icon layui-icon-user",
+		"href":"user/main"
+	},
+	{
+		"id": 3,
+		"title": "收费管理",
+		"type": 1,
+		"openType": "_iframe",
+		"icon": "layui-icon layui-icon-slider",
+		"href":"charger/main"
+	},
+	{
+		"id": 4,
+		"title": "停车记录",
+		"type": 1,
+		"openType": "_iframe",
+		"icon": "layui-icon layui-icon-list",
+		"href":"park/main"
+	},
+	{
+		"id": 5,
+		"title": "车位管理",
+		"type": 1,
+		"openType": "_iframe",
+		"icon": "layui-icon layui-icon-console",
+		"href":"info/main"
+	},
+	{
+		"id": 10,
+		"title": "操作记录",
+		"type": 0,
+		"icon": "layui-icon layui-icon-template-1",
+		"href":"",
+		"children": [
+			{
+				"id": 11,
+				"title": "管理员登录记录",
+				"icon": "layui-icon layui-icon-template-1",
+				"type": 1,
+				"openType": "_iframe",
+				"href": "sysUserLogin/main"
+			},
+			{
+				"id": 12,
+				"title": "用户操作记录",
+				"icon": "layui-icon layui-icon-template-1",
+				"type": 1,
+				"openType": "_iframe",
+				"href": "record/main"
+			},
+			{
+				"id": 13,
+				"title": "VIP变更记录",
+				"icon": "layui-icon layui-icon-template-1",
+				"type": 1,
+				"openType": "_iframe",
+				"href": "log/main"
+			},
+			{
+				"id": 14,
+				"title": "充值记录",
+				"icon": "layui-icon layui-icon-template-1",
+				"type": 1,
+				"openType": "_iframe",
+				"href": "recharge/main"
+			},
+			{
+				"id": 15,
+				"title": "收入记录",
+				"icon": "layui-icon layui-icon-template-1",
+				"type": 1,
+				"openType": "_iframe",
+				"href": "income/main"
+			}
+		]
+
+	}
+]

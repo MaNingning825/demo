@@ -1,0 +1,52 @@
+{
+	"logo": {
+		"title": "停车场管理系统",
+		"image": "admin/test.png"
+	},
+	"menu": {
+		"data": "admin/data/menu.json",
+		"collaspe": true,
+		"accordion": true,
+		"method": "GET",
+		"control": false,
+		"select": "0"
+	},
+	"tab": {
+		"muiltTab": true,
+		"keepState": true,
+		"tabMax": 30,
+		"index": {
+			"id": "0",
+			"href": "console/console",
+			"title": "首页"
+		}
+	},
+	"theme": {
+		"defaultColor": "1",
+		"defaultMenu": "light-theme",
+		"allowCustom": true
+	},
+	"colors": [{
+			"id": "1",
+			"color": "#2d8cf0"
+		},
+		{
+			"id": "2",
+			"color": "#5FB878"
+		},
+		{
+			"id": "3",
+			"color": "#1E9FFF"
+		}, {
+			"id": "4",
+			"color": "#FFB800"
+		}, {
+			"id": "5",
+			"color": "darkgray"
+		}
+	],
+	"other": {
+		"keepLoad": 1200,
+		"autoHead": false
+	}
+}

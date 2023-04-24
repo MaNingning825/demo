@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('充值新增')" />
+</head>
+<body>
+    <form class="layui-form">
+        <div class="mainBox">
+            <div class="main-container">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户id：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="userId" placeholder="请输入用户id" class="layui-input" />
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">1用户充值 2管理员充值：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="source" placeholder="请输入1用户充值 2管理员充值" class="layui-input" />
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">充值金额：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="recharge" placeholder="请输入充值金额" class="layui-input" />
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">消息：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="msg" placeholder="请输入消息" class="layui-input" />
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="button-container">
+                <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="recharge-save">
+                    <i class="layui-icon layui-icon-ok"></i>
+                    提交
+                </button>
+                <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+</body>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+
+    layui.use(['form', 'jquery','laydate','dictionary'], function () {
+        let form = layui.form;
+        let $ = layui.jquery;
+        let laydate = layui.laydate;
+
+        let prefix = "/park/recharge/"
+
+
+        form.on('submit(recharge-save)', function (data) {
+            for(var key in data.field){
+                var type=$(data.form).find("input[name='"+key+"']").attr("type");
+                if(type=="checkbox"){
+                    var value="";
+                    $(data.form).find("input[name='"+key+"']:checked").each(function(){
+                        value+=$(this).val()+",";
+                    })
+                    if(value!=""){
+                        value=value.substr(0,value.length-1);
+                        data.field[key]=value;
+                    }
+
+                }
+            }
+            $.ajax({
+                url: prefix+'save',
+                data: JSON.stringify(data.field),
+                dataType: 'json',
+                contentType: 'application/json',
+                type: 'post',
+                success: function (result) {
+                    if (result.success) {
+                        layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                            parent.layer.close(parent.layer.getFrameIndex(window.name));
+                            parent.layui.table.reload("recharge-table");
+                        });
+                    } else {
+                        layer.msg(result.msg, {icon: 2, time: 1000});
+                    }
+                }
+            })
+            return false;
+        });
+    });
+</script>
+</html>

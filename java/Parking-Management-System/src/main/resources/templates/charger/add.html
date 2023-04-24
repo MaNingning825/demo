@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增停车收费标准')" />
+</head>
+<body>
+    <form class="layui-form">
+        <div class="mainBox">
+            <div class="main-container">
+            <div class="layui-form-item">
+                <label class="layui-form-label">停车卡类型：</label>
+                <div class="layui-input-block">
+                    <select name="cardType"     >
+                        <option value="1">普通卡</option>
+                        <option value="2">VIP卡</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">车位类型：</label>
+                <div class="layui-input-block">
+                    <select name="stationType"     >
+                        <option value="1">小型</option>
+                        <option value="2">中型</option>
+                        <option value="3">大型</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">价格：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="charge" placeholder="请输入价格" class="layui-input" />
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态：</label>
+                <div class="layui-input-block">
+                    <select name="state"     >
+                        <option value="1">上架</option>
+                        <option value="2">下架</option>
+                    </select>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="button-container">
+                <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="charger-save">
+                    <i class="layui-icon layui-icon-ok"></i>
+                    提交
+                </button>
+                <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+</body>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+
+    layui.use(['form', 'jquery','laydate','dictionary'], function () {
+        let form = layui.form;
+        let $ = layui.jquery;
+        let laydate = layui.laydate;
+
+        let prefix = "/charger/"
+
+
+        form.on('submit(charger-save)', function (data) {
+            for(var key in data.field){
+                var type=$(data.form).find("input[name='"+key+"']").attr("type");
+                if(type=="checkbox"){
+                    var value="";
+                    $(data.form).find("input[name='"+key+"']:checked").each(function(){
+                        value+=$(this).val()+",";
+                    })
+                    if(value!=""){
+                        value=value.substr(0,value.length-1);
+                        data.field[key]=value;
+                    }
+
+                }
+            }
+            $.ajax({
+                url: prefix+'save',
+                data: JSON.stringify(data.field),
+                dataType: 'json',
+                contentType: 'application/json',
+                type: 'post',
+                success: function (result) {
+                    if (result.success) {
+                        layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                            parent.layer.close(parent.layer.getFrameIndex(window.name));
+                            parent.layui.table.reload("charger-table");
+                        });
+                    } else {
+                        layer.msg(result.msg, {icon: 2, time: 1000});
+                    }
+                }
+            })
+            return false;
+        });
+    });
+</script>
+</html>

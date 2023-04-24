@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="include :: header('充值列表')" />
+</head>
+<body class="pear-container">
+     <div class="layui-card">
+        <div class="layui-card-body">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId" class="layui-form">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户ID：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="userId" placeholder="请输入用户ID" class="layui-input" />
+                        </div>
+                        <label class="layui-form-label">来源</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="source" placeholder="1用户充值 2管理员充值" class="layui-input" />
+                        </div>
+                        <label class="layui-form-label">充值金额：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="recharge" placeholder="请输入充值金额" class="layui-input" />
+                        </div>
+                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="recharge-query">
+                        <i class="layui-icon layui-icon-search"></i>
+                        查询
+                    </button>
+                    <button type="reset" class="pear-btn pear-btn-md">
+                        <i class="layui-icon layui-icon-refresh"></i>
+                        重置
+                    </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+     </div>
+         <div class="layui-card">
+             <div class="layui-card-body">
+                 <table id="recharge-table" lay-filter="recharge-table"></table>
+             </div>
+         </div>
+    <th:block th:include="include :: footer" />
+         <script>
+             layui.use(['table', 'form', 'jquery','dictionary'], function () {
+                 let table = layui.table;
+                 let form = layui.form;
+                 let $ = layui.jquery;
+
+                 let prefix = "/recharge/";
+
+                 let cols = [
+                     [
+                         {
+                             field: 'id',
+                             title: 'ID',
+                             align:'center'
+                         },
+                        {
+                             field: 'userId',
+                             title: '用户ID',
+                            align:'center'
+                        },
+                        {
+                             field: 'source',
+                             title: '来源',
+                            align:'center',
+                            templet:function (d) {
+                                if (d.source=== 1) {
+                                    return '用户充值';
+                                }else if(d.source===2){
+                                    return '管理员充值';
+                                }
+                            }
+                        },
+                        {
+                             field: 'recharge',
+                             title: '充值金额',
+                            align:'center',
+                            templet:function (d) {
+                                return d.recharge+'元';
+                            }
+                        },
+                        {
+                             field: 'msg',
+                             title: '消息',
+                            align:'center'
+                        }
+                     ]
+                 ]
+
+                 table.render({
+                     elem: '#recharge-table',
+                     url: prefix + 'data',
+                     page: true,
+                     cols: cols,
+                     skin: 'line',
+                     toolbar: '#recharge-toolbar',
+                     defaultToolbar: [{
+                         layEvent: 'refresh',
+                         icon: 'layui-icon-refresh',
+                     }, 'filter', 'print', 'exports']
+                 });
+                 table.on('toolbar(recharge-table)', function (obj) {
+                     if (obj.event === 'refresh') {
+                         window.refresh();
+                     }
+                 });
+
+                 form.on('submit(recharge-query)', function (data) {
+                     table.reload('recharge-table', {where: data.field})
+                     return false;
+                 });
+                 window.refresh = function (param) {
+                     table.reload('recharge-table', {where: param});
+                 }
+             })
+         </script>
+</body>
+</html>

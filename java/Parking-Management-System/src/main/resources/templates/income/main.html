@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="include :: header('收入列表')" />
+</head>
+<body class="pear-container">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId" class="layui-form">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">记录ID：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="id" placeholder="请输入记录ID" class="layui-input" />
+                    </div>
+                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="income-query">
+                        <i class="layui-icon layui-icon-search"></i>
+                        查询
+                    </button>
+                    <button type="reset" class="pear-btn pear-btn-md">
+                        <i class="layui-icon layui-icon-refresh"></i>
+                        重置
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <table id="income-table" lay-filter="income-table"></table>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<script>
+    layui.use(['table', 'form', 'jquery','dictionary'], function () {
+        let table = layui.table;
+        let form = layui.form;
+        let $ = layui.jquery;
+
+        let prefix = "/park/income/";
+
+        let cols = [
+            [
+                {
+                    field: 'id',
+                    title: 'ID',
+                    align:'center'
+                },
+                {
+                    field: 'income',
+                    title: '收入',
+                    align:'center',
+                    templet:function (d) {
+                        return d.income+'元';
+                    }
+                },
+                {
+                    field: 'recordDate',
+                    title: '记录时间',
+                    align:'center'
+                }
+            ]
+        ]
+
+        table.render({
+            elem: '#income-table',
+            url: prefix + 'data',
+            page: true,
+            cols: cols,
+            skin: 'line',
+            toolbar: '#income-toolbar',
+            defaultToolbar: [{
+                layEvent: 'refresh',
+                icon: 'layui-icon-refresh',
+            }, 'filter', 'print', 'exports']
+        });
+        table.on('toolbar(income-table)', function (obj) {
+            if (obj.event === 'refresh') {
+                window.refresh();
+            }
+        });
+        form.on('submit(income-query)', function (data) {
+            console.log(data.field.id);
+            table.reload('income-table', {where: data.field})
+            return false;
+        });
+        window.refresh = function (param) {
+            table.reload('income-table', {where: param});
+        }
+    })
+</script>
+</body>
+</html>

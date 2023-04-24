@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改用户')" />
+</head>
+<body>
+<form class="layui-form" th:object="${user}">
+    <div class="mainBox">
+        <div class="main-container">
+            <input name="carId" th:field="*{carId}" type="hidden">
+    <div class="layui-form-item">
+        <label class="layui-form-label">微信唯一标识：</label>
+        <div class="layui-input-block">
+            <input type="text" name="openid" th:field="*{openid}" placeholder="请输入微信唯一标识" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户昵称：</label>
+        <div class="layui-input-block">
+            <input type="text" name="nickName" th:field="*{nickName}" placeholder="请输入用户昵称" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户密码：</label>
+        <div class="layui-input-block">
+            <input type="text" name="password" th:field="*{password}" placeholder="请输入用户密码" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">停车卡类型：</label>
+        <div class="layui-input-block">
+            <select name="cardType"   >
+                    <option value="1">普通卡</option>
+                    <option value="2">VIP卡</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">车位类型：</label>
+        <div class="layui-input-block">
+            <select name="stationType"   >
+                <option value="1">小型</option>
+                <option value="2">中型</option>
+                <option value="3">大型</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户车牌号：</label>
+        <div class="layui-input-block">
+            <input type="text" name="carNumber" th:field="*{carNumber}" placeholder="请输入用户车牌号" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户手机：</label>
+        <div class="layui-input-block">
+            <input type="text" name="tel" th:field="*{tel}" placeholder="请输入用户手机" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">头像：</label>
+        <div class="layui-input-block">
+            <input type="text" name="avatarUrl" th:field="*{avatarUrl}" placeholder="请输入头像" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别：</label>
+        <div class="layui-input-block">
+            <select name="gender"   >
+                <option value="0">未知</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户余额：</label>
+        <div class="layui-input-block">
+            <input type="text" name="overage" th:field="*{overage}" placeholder="请输入用户余额" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否停车：</label>
+        <div class="layui-input-block">
+            <select name="parkingLot"   >
+                <option value="0">未停车</option>
+                <option value="1">已停车</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态：</label>
+        <div class="layui-input-block">
+            <select name="state"   >
+                <option value="1">正常</option>
+                <option value="2">冻结</option>
+                <option value="3">欠费</option>
+            </select>
+        </div>
+    </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="button-container">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="user-update">
+                <i class="layui-icon layui-icon-ok"></i>
+                提交
+            </button>
+            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-refresh"></i>
+                重置
+            </button>
+        </div>
+    </div>
+</form>
+</body>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+    layui.use(['form', 'jquery','laydate','dictionary'], function () {
+        let form = layui.form;
+        let $ = layui.jquery;
+        let laydate = layui.laydate;
+
+        let prefix = "/user/";
+
+
+        form.on('submit(user-update)', function (data) {
+            for(var key in data.field){
+                var type=$(data.form).find("input[name='"+key+"']").attr("type");
+                if(type=="checkbox"){
+                    var value="";
+                    $(data.form).find("input[name='"+key+"']:checked").each(function(){
+                        value+=$(this).val()+",";
+                    })
+                    if(value!=""){
+                        value=value.substr(0,value.length-1);
+                        data.field[key]=value;
+                    }
+
+                }
+            }
+            $.ajax({
+                url: prefix+'update',
+                data: JSON.stringify(data.field),
+                dataType: 'json',
+                contentType: 'application/json',
+                type: 'put',
+                success: function (result) {
+                    if (result.success) {
+                        layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                            parent.layer.close(parent.layer.getFrameIndex(window.name));
+                            parent.layui.table.reload("user-table");
+                        });
+                    } else {
+                        layer.msg(result.msg, {icon: 2, time: 1000});
+                    }
+                }
+            })
+            return false;
+        });
+    });
+</script>
+</html>

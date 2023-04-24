@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="include :: header('VIP变更列表')" />
+</head>
+<body class="pear-container">
+     <div class="layui-card">
+        <div class="layui-card-body">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId" class="layui-form">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户ID：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="userId" placeholder="请输入用户ID" class="layui-input" />
+                        </div>
+                        <label class="layui-form-label">用户状态：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="vip" placeholder="请输入" class="layui-input" />
+                        </div>
+                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="log-query">
+                        <i class="layui-icon layui-icon-search"></i>
+                        查询
+                    </button>
+                    <button type="reset" class="pear-btn pear-btn-md">
+                        <i class="layui-icon layui-icon-refresh"></i>
+                        重置
+                    </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+     </div>
+         <div class="layui-card">
+             <div class="layui-card-body">
+                 <table id="log-table" lay-filter="log-table"></table>
+             </div>
+         </div>
+    <th:block th:include="include :: footer" />
+         <script>
+             layui.use(['table', 'form', 'jquery','dictionary'], function () {
+                 let table = layui.table;
+                 let form = layui.form;
+                 let $ = layui.jquery;
+
+                 let prefix = "log/";
+
+                 let cols = [
+                     [
+                         {
+                             field: 'id',
+                             title: 'ID主键',
+                             align:'center'
+                         },
+                        {
+                             field: 'userId',
+                             title: '用户ID',
+                             align:'center'
+                        },
+                        {
+                             field: 'vip',
+                             title: '状态',
+                             align:'center',
+                            templet:function (d) {
+                                if (d.vip=== 1) {
+                                    return '降级为普通用户';
+                                }else if(d.vip===2){
+                                    return '升级为vip';
+                                }
+                            }
+                        },
+                         {
+                             field: 'updateTime',
+                             title: "更新时间",
+                             align:'center'
+                         }
+                     ]
+                 ]
+
+                 table.render({
+                     elem: '#log-table',
+                     url: prefix + 'data',
+                     page: true,
+                     cols: cols,
+                     skin: 'line',
+                     toolbar: '#log-toolbar',
+                     defaultToolbar: [{
+                         layEvent: 'refresh',
+                         icon: 'layui-icon-refresh',
+                     }, 'filter', 'print', 'exports']
+                 });
+                 table.on('toolbar(recharge-table)', function (obj) {
+                     if (obj.event === 'refresh') {
+                         window.refresh();
+                     }
+                 });
+                 form.on('submit(log-query)', function (data) {
+                     table.reload('log-table', {where: data.field})
+                     return false;
+                 });
+                 window.refresh = function (param) {
+                     table.reload('log-table', {where: param});
+                 }
+             })
+         </script>
+</body>
+</html>

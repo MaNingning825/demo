@@ -1,0 +1,46 @@
+2022-02-24 11:21:52.633 [restartedMain] INFO  com.example.demo.DemoApplication - Starting DemoApplication using Java 1.8.0_321 on fundebug with PID 17040 (D:\大三下小学期\demo\target\classes started by root in D:\大三下小学期\demo)
+2022-02-24 11:21:52.655 [restartedMain] INFO  com.example.demo.DemoApplication - The following profiles are active: dev
+2022-02-24 11:21:52.737 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-02-24 11:21:52.738 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-02-24 11:21:54.836 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-02-24 11:21:54.841 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-02-24 11:21:54.998 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 127 ms. Found 0 Redis repository interfaces.
+2022-02-24 11:21:55.896 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@59bdf02a' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-02-24 11:21:55.901 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-02-24 11:21:56.757 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2022-02-24 11:21:56.784 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2022-02-24 11:21:56.785 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2022-02-24 11:21:56.785 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.48]
+2022-02-24 11:21:56.966 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-02-24 11:21:56.966 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4227 ms
+2022-02-24 11:21:57.434 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2022-02-24 11:22:02.036 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2022-02-24 11:22:02.044 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2022-02-24 11:24:07.035 [restartedMain] INFO  com.example.demo.DemoApplication - Starting DemoApplication using Java 1.8.0_321 on fundebug with PID 13064 (D:\大三下小学期\demo\target\classes started by root in D:\大三下小学期\demo)
+2022-02-24 11:24:07.039 [restartedMain] INFO  com.example.demo.DemoApplication - The following profiles are active: dev
+2022-02-24 11:24:07.110 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-02-24 11:24:07.110 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-02-24 11:24:08.048 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-02-24 11:24:08.050 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-02-24 11:24:08.126 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 60 ms. Found 0 Redis repository interfaces.
+2022-02-24 11:24:08.540 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@3daf41f2' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-02-24 11:24:08.547 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-02-24 11:24:09.019 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2022-02-24 11:24:09.027 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2022-02-24 11:24:09.028 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2022-02-24 11:24:09.028 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.48]
+2022-02-24 11:24:09.160 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-02-24 11:24:09.160 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2049 ms
+2022-02-24 11:24:09.418 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2022-02-24 11:24:09.804 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2022-02-24 11:24:14.362 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2022-02-24 11:24:14.723 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6aa36af1, org.springframework.security.web.context.SecurityContextPersistenceFilter@14e68d91, org.springframework.security.web.header.HeaderWriterFilter@765465fa, org.springframework.web.filter.CorsFilter@71ca1ffc, org.springframework.security.web.authentication.logout.LogoutFilter@650e7c2f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@136ca322, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@3edddd02, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@29d36bcf, com.example.demo.security.filter.JWTAuthenticationFilter@60ff1ca8, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@3b6ccaba, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1164736c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@68f9a467, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@117a06a4, org.springframework.security.web.session.SessionManagementFilter@f76f39f, org.springframework.security.web.access.ExceptionTranslationFilter@74bc0352, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@31c7884b]
+2022-02-24 11:24:16.023 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-02-24 11:24:16.090 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2022-02-24 11:24:16.121 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-24 11:24:16.143 [restartedMain] INFO  com.example.demo.DemoApplication - Started DemoApplication in 9.818 seconds (JVM running for 11.998)
+2022-02-24 11:24:50.288 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-02-24 11:24:50.288 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-02-24 11:24:50.290 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2022-02-24 11:25:29.262 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2022-02-24 11:25:29.268 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
