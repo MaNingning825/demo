@@ -1,5 +1,7 @@
 node_modules/
 HELP.md
+.DS_Store
+*./.DS_Store
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
